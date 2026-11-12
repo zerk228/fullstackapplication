@@ -2,7 +2,7 @@
 
 **Project Name:** Cars Dealership Review Application
 
-**Repository Name:** IBM-Full-Stack-Application-Development-Capstone-Project
+**Repository Name:** fullstackapplication
 
 ## Description
 
