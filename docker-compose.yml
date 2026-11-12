@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  mongo_db:
+    image: mongo:7
+    container_name: mongo_db
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  node-backend:
+    build: ./database
+    container_name: node-backend
+    restart: unless-stopped
+    depends_on:
+      - mongo_db
+    environment:
+      - MONGO_URL=mongodb://mongo_db:27017/dealershipsDB
+      - PORT=3000
+    ports:
+      - "3000:3000"
+
+  django-backend:
+    build: ./backend
+    container_name: django-backend
+    restart: unless-stopped
+    environment:
+      - DJANGO_DEBUG=False
+      - DJANGO_ALLOWED_HOSTS=*
+      - NODE_API_BASE_URL=http://node-backend:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - node-backend
+
+  react-frontend:
+    build: ./frontend
+    container_name: react-frontend
+    restart: unless-stopped
+    depends_on:
+      - django-backend
+      - node-backend
+    ports:
+      - "8080:80"
+
+volumes:
+  mongo_data:

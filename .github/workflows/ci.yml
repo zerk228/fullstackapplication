@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install Django backend dependencies
+        working-directory: backend
+        run: pip install -r requirements.txt
+
+      - name: Django system check
+        working-directory: backend
+        run: python manage.py check
+
+      - name: Install Node database microservice dependencies
+        working-directory: database
+        run: npm install
+
+      - name: Run Node microservice sentiment tests
+        working-directory: database
+        run: npm test
+
+      - name: Install React frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Lint React frontend
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Build React frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Build Django backend Docker image
+        run: docker build -t django-backend:ci ./backend
+
+      - name: Build Node microservice Docker image
+        run: docker build -t node-backend:ci ./database
+
+      - name: Build React frontend Docker image
+        run: docker build -t react-frontend:ci ./frontend

@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f5f6f8;
+  color: #1c2d4f;
+}
+
+a {
+  color: #1c2d4f;
+}
+
+.app-header {
+  background: #1c2d4f;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.app-nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.app-nav a:hover {
+  text-decoration: underline;
+}
+
+main.app-main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: 60vh;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.dealer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.state-filter {
+  margin-bottom: 1rem;
+}
+
+.state-filter select {
+  padding: 0.4rem;
+  font-size: 1rem;
+}
+
+.sentiment-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.sentiment-positive {
+  background: #2e7d32;
+}
+
+.sentiment-neutral {
+  background: #757575;
+}
+
+.sentiment-negative {
+  background: #c62828;
+}
+
+form.app-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 420px;
+}
+
+form.app-form input,
+form.app-form select,
+form.app-form textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form.app-form button {
+  padding: 0.6rem;
+  background: #1c2d4f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form.app-form button:hover {
+  background: #15223c;
+}
+
+.error-text {
+  color: #c62828;
+}
+
+.success-text {
+  color: #2e7d32;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  color: #777;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-backend
+  labels:
+    app: django-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-backend
+  template:
+    metadata:
+      labels:
+        app: django-backend
+    spec:
+      containers:
+        - name: django-backend
+          image: django-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_DEBUG
+              value: "False"
+            - name: DJANGO_ALLOWED_HOSTS
+              value: "*"
+            - name: NODE_API_BASE_URL
+              value: "http://node-backend:3000"

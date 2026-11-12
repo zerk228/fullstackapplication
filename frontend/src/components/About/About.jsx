@@ -1,0 +1,19 @@
+export default function About() {
+  return (
+    <div className="card">
+      <h2>About Us</h2>
+      <p>
+        The Cars Dealership Review Application connects car buyers with
+        dealerships across the United States. Our mission is to make it
+        easy to find a trustworthy dealer near you by surfacing honest,
+        sentiment-analyzed reviews from real customers.
+      </p>
+      <p>
+        This project was built as part of the IBM Full Stack Application
+        Development Capstone, combining a Django backend, a Node.js/Express
+        microservice backed by MongoDB, and a React single-page frontend,
+        all containerized with Docker and deployed to Kubernetes.
+      </p>
+    </div>
+  )
+}
