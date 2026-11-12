@@ -25,38 +25,38 @@ jobs:
           python-version: "3.9"
 
       - name: Install Django backend dependencies
-        working-directory: backend
+        working-directory: server
         run: pip install -r requirements.txt
 
       - name: Django system check
-        working-directory: backend
+        working-directory: server
         run: python manage.py check
 
       - name: Install Node database microservice dependencies
-        working-directory: database
+        working-directory: server/database
         run: npm install
 
       - name: Run Node microservice sentiment tests
-        working-directory: database
+        working-directory: server/database
         run: npm test
 
       - name: Install React frontend dependencies
-        working-directory: frontend
+        working-directory: server/frontend
         run: npm install
 
       - name: Lint React frontend
-        working-directory: frontend
+        working-directory: server/frontend
         run: npm run lint
 
       - name: Build React frontend
-        working-directory: frontend
+        working-directory: server/frontend
         run: npm run build
 
       - name: Build Django backend Docker image
-        run: docker build -t django-backend:ci ./backend
+        run: docker build -t django-backend:ci ./server
 
       - name: Build Node microservice Docker image
-        run: docker build -t node-backend:ci ./database
+        run: docker build -t node-backend:ci ./server/database
 
       - name: Build React frontend Docker image
-        run: docker build -t react-frontend:ci ./frontend
+        run: docker build -t react-frontend:ci ./server/frontend

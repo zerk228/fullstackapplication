@@ -13,10 +13,11 @@ const { analyzeSentiment } = require('./sentiment');
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/dealershipsDB';
 
 const dealers = [
-  { dealer_id: 1, name: 'Metro Motors', lat: 41.8781, long: -87.6298, city: 'Chicago', address: '100 State St', zip: '60601', state: 'IL' },
-  { dealer_id: 2, name: 'Golden Gate Auto', lat: 37.7749, long: -122.4194, city: 'San Francisco', address: '200 Market St', zip: '94105', state: 'CA' },
-  { dealer_id: 3, name: 'Lone Star Cars', lat: 29.7604, long: -95.3698, city: 'Houston', address: '300 Main St', zip: '77002', state: 'TX' },
-  { dealer_id: 4, name: 'Empire Auto Group', lat: 40.7128, long: -74.0060, city: 'New York', address: '400 Broadway', zip: '10013', state: 'NY' },
+  { dealer_id: 1, name: 'Metro Motors', lat: 41.8781, long: -87.6298, city: 'Chicago', address: '100 State St', zip: '60601', state: 'Illinois' },
+  { dealer_id: 2, name: 'Golden Gate Auto', lat: 37.7749, long: -122.4194, city: 'San Francisco', address: '200 Market St', zip: '94105', state: 'California' },
+  { dealer_id: 3, name: 'Lone Star Cars', lat: 29.7604, long: -95.3698, city: 'Houston', address: '300 Main St', zip: '77002', state: 'Texas' },
+  { dealer_id: 4, name: 'Empire Auto Group', lat: 40.7128, long: -74.0060, city: 'New York', address: '400 Broadway', zip: '10013', state: 'New York' },
+  { dealer_id: 5, name: 'Sunflower State Motors', lat: 39.0473, long: -95.6752, city: 'Topeka', address: '500 Kansas Ave', zip: '66603', state: 'Kansas' },
 ];
 
 const rawReviews = [

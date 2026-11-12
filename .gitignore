@@ -34,3 +34,5 @@ Thumbs.db
 # --- Misc ---
 *.log
 coverage/
+mongodata/
+cookies.txt

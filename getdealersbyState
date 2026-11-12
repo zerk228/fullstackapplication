@@ -1,0 +1,2 @@
+$ curl -s "http://localhost:3000/fetchDealers/Kansas"
+[{"_id":"6af61c9d11e4634ad2742cb0","dealer_id":5,"name":"Sunflower State Motors","lat":39.0473,"long":-95.6752,"city":"Topeka","address":"500 Kansas Ave","zip":"66603","state":"Kansas","__v":0}]

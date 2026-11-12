@@ -1,0 +1,2 @@
+$ curl -s http://localhost:3000/fetchDealer/1
+{"_id":"6af61c9d11e4634ad2742cac","dealer_id":1,"name":"Metro Motors","lat":41.8781,"long":-87.6298,"city":"Chicago","address":"100 State St","zip":"60601","state":"Illinois","__v":0}
