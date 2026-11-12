@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { postReview } from '../../api.js'
+import { postReview, fetchCarModels } from '../../api.js'
 
 export default function PostReview({ user }) {
   const { id } = useParams();
@@ -13,12 +13,26 @@ export default function PostReview({ user }) {
     car_model: '',
     car_year: '',
   });
+  const [carModels, setCarModels] = useState([]);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    fetchCarModels()
+      .then((data) => setCarModels(Array.isArray(data.CarModels) ? data.CarModels : []))
+      .catch(() => setCarModels([]));
+  }, []);
+
+  const makes = [...new Set(carModels.map((m) => m.CarMake))];
+  const modelsForMake = carModels.filter((m) => m.CarMake === form.car_make);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+      ...(name === 'car_make' ? { car_model: '' } : {}),
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -76,20 +90,18 @@ export default function PostReview({ user }) {
           value={form.purchase_date}
           onChange={handleChange}
         />
-        <input
-          type="text"
-          name="car_make"
-          placeholder="Car make (e.g. Toyota)"
-          value={form.car_make}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="car_model"
-          placeholder="Car model (e.g. Camry)"
-          value={form.car_model}
-          onChange={handleChange}
-        />
+        <select name="car_make" value={form.car_make} onChange={handleChange}>
+          <option value="">Select car make</option>
+          {makes.map((make) => (
+            <option key={make} value={make}>{make}</option>
+          ))}
+        </select>
+        <select name="car_model" value={form.car_model} onChange={handleChange}>
+          <option value="">Select car model</option>
+          {modelsForMake.map((m) => (
+            <option key={m.CarModel} value={m.CarModel}>{m.CarModel}</option>
+          ))}
+        </select>
         <input
           type="number"
           name="car_year"

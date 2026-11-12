@@ -15,6 +15,8 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
+NODE_API_BASE_URL = os.environ.get('NODE_API_BASE_URL', 'http://localhost:3000')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

@@ -96,6 +96,12 @@ app.post('/insert_review', async (req, res) => {
   }
 });
 
+// GET /analyze/:text - exposes the sentiment analyzer standalone,
+// used by the Django /djangoapp/analyze/<text> proxy
+app.get('/analyze/:text', (req, res) => {
+  res.json({ sentiment: analyzeSentiment(req.params.text) });
+});
+
 app.listen(PORT, () => {
   console.log(`Dealership database microservice listening on port ${PORT}`);
 });

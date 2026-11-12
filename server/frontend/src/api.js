@@ -40,6 +40,10 @@ export function logoutUser() {
   return fetch(`${DJANGO_BASE_URL}/djangoapp/logout`, { method: 'GET' }).then(asJson);
 }
 
+export function fetchCarModels() {
+  return fetch(`${DJANGO_BASE_URL}/djangoapp/get_cars`).then(asJson);
+}
+
 // ---- Node/Express dealer + review endpoints ----
 
 export function fetchDealers(state) {

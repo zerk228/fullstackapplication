@@ -3,17 +3,24 @@ Views for the Cars Dealership Review Application's djangoapp.
 
 Module 1 (Static Pages): about(), contact(), index()
 Module 2 (User Management): login_user(), logout_user(), registration()
+Module 3 (Car Catalog / Sentiment Proxy): get_cars(), analyze_review_sentiment()
 """
 import json
 import logging
 
+import requests
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from .models import CarMake, CarModel
+
 logger = logging.getLogger(__name__)
+
+NODE_API_BASE_URL = getattr(settings, 'NODE_API_BASE_URL', 'http://localhost:3000')
 
 
 # ---------------------------------------------------------------------------
@@ -97,3 +104,28 @@ def check_session(request):
     if request.user.is_authenticated:
         return JsonResponse({"userName": request.user.username, "status": "Authenticated"})
     return JsonResponse({"status": "Unauthenticated"})
+
+
+# ---------------------------------------------------------------------------
+# Module 3: Car Catalog and Sentiment Proxy
+# ---------------------------------------------------------------------------
+
+def get_cars(request):
+    """GET /djangoapp/get_cars - all car makes and their models,
+    managed through the Django admin (CarMake/CarModel)."""
+    car_models = CarModel.objects.select_related('car_make').all()
+    cars = [
+        {"CarMake": cm.car_make.name, "CarModel": cm.name, "type": cm.type}
+        for cm in car_models
+    ]
+    return JsonResponse({"CarModels": cars})
+
+
+def analyze_review_sentiment(request, text):
+    """GET /djangoapp/analyze/<text> - proxies to the Node.js
+    sentiment-analysis microservice and returns its result."""
+    try:
+        resp = requests.get(f'{NODE_API_BASE_URL}/analyze/{text}', timeout=5)
+        return JsonResponse(resp.json(), status=resp.status_code)
+    except requests.RequestException as exc:
+        return JsonResponse({"error": str(exc)}, status=502)

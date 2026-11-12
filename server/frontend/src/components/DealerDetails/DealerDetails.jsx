@@ -30,7 +30,7 @@ export default function DealerDetails({ user }) {
       <p>{dealer.address}, {dealer.city}, {dealer.state} {dealer.zip}</p>
 
       {user ? (
-        <p><Link to={`/postreview/${id}`}>Write a review</Link></p>
+        <p><Link to={`/postreview/${id}`}>Review Dealer</Link></p>
       ) : (
         <p><Link to="/login">Log in</Link> to write a review.</p>
       )}
